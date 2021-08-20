@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>L2 - Creating App Vue</title>
+    <title>L3 - Atrribute Binding</title>
     <!-- Import css styles -->
     <link rel="stylesheet" href="./assets/styles.css">
     <!-- Import vue.js -->
@@ -12,8 +12,23 @@
 </head>
 <body>
     <div id="app">
-        <h1>{{ product }}</h1>
-        <p>{{ description }}</p>
+        <div class="nav-bar"></div>
+        <div class="product-display">
+            <div class="product-container">
+                <div class="product-image">
+                    <!-- Gambar ditampilkan disini -->
+                    <img :src="image" alt="kaus-kaki-hijau">
+                    <!-- v-bind:attribute yang dipasangkan dengan attribute html 
+                        digunakan untuk memanggil data ada di app -->
+                    <!-- v :attribute => shorthand -->
+                </div>
+                <div class="product-info">
+                    <h1>{{ product }}</h1>
+                    <!-- Tugas tambahkan link dengan attribute binding -->
+                    <a :href="url" target="_blank">Visit Me - Azizah Elvia</a>
+                </div>
+            </div>
+        </div>
     </div>
 
     <!-- Import js/App -->
