@@ -22,25 +22,30 @@
                 <div class="product-info">
                     <h1>{{ product }}</h1>
                     <!-- <p v-show="inStock">Stok Tersedia</p> -->
-                    <!-- v-if digantikan dgn v-show yang berfungsi untuk
-                        hanya menampilkan data yang nilainya tersebut true-->
-                    <!-- v-else tidak diperlukan karena jika yang ditampilkan
-                        nilai dari object = true -->
 
-                    <!-- Task!: Buatlah logical if OnSale = true maka akan menampilkan dijual & stok tersedia 
-                        else onSale != true maka ia akan menampilkan Stok Habis -->
+                    <p v-if="inventory > 20">Stok Tersedia</p>
+                    <p v-else-if="inventory <= 20 && inventory > 0">Hampir Habis!</p>
+                    <p v-else>Stok Habis</p>
 
-                    <div v-if="onSale">
-                        <p>Dijual</p>
-                        <p v-if="inventory > 20">Stok Tersedia</p>
-                        <p v-else-if="inventory <= 20 && inventory > 0">Hampir Habis!</p>
-                        <p v-else>Stok Habis</p>
-                    </div>
+                    <ul>
+                        <!-- v-for digunakan untuk looping (mengulang) suatu elemen dari ekspresi 
+                        yang telah dideklarasikan dan menampilkan di dalam ekspresi tersebut -->
+                        <!-- detail adalah alias key dari details untuk menampilkan data dalam ekspresi -->
+                        <li v-for="detail in details">{{ detail }}</li>
+                    </ul>
 
-                    <div v-else>
-                        <p>Maaf Stok Saat Ini Habis</p>
-                    </div>
-                    <!-- End of task -->
+                    <!-- Task!: Tambahkan array sizes ke data object dengan menggunakan v-for
+                        untuk menampilkannya-->
+                        <ul>
+                            <li v-for="(size, index) in sizes" :key="index">{{ size }}</li>
+                        </ul>
+                    <!-- End Task -->
+
+                        <!-- v-for juga bisa mengambil dan menampilkan data object dalam array 
+                        dengan cara mendeklarasikan alias dengan ekspresi contoh varian.color -->
+                        <!-- atribut :key digunakan untuk membuat suatu ekspresi bersifat unik tidak boleh sama, 
+                        digunakan untuk mengubah data dengan identitas id dalam key -->
+                    <div v-for="variant in variants" :key="variant.id">{{ variant.color }}</div>
                 </div>
             </div>
         </div>
