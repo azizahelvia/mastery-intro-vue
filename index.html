@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>L4 - Conditional Rendering</title>
+    <title>L6 - Event Handling</title>
     <!-- Import css styles -->
     <link rel="stylesheet" href="./assets/styles.css">
     <!-- Import vue.js -->
@@ -13,6 +13,9 @@
 <body>
     <div id="app">
         <div class="nav-bar"></div>
+        <!-- Tampilan keranjang (cart) -->
+        <div class="cart">Cart {{ cart }}</div>
+
         <div class="product-display">
             <div class="product-container">
                 <div class="product-image">
@@ -28,24 +31,24 @@
                     <p v-else>Stok Habis</p>
 
                     <ul>
-                        <!-- v-for digunakan untuk looping (mengulang) suatu elemen dari ekspresi 
-                        yang telah dideklarasikan dan menampilkan di dalam ekspresi tersebut -->
-                        <!-- detail adalah alias key dari details untuk menampilkan data dalam ekspresi -->
                         <li v-for="detail in details">{{ detail }}</li>
                     </ul>
+                    <!-- tambahkan @mouseover ketika menghover mouse ke elemen yg dituju maka ada perubahan gambar-->
+                    <div v-for="variant in variants" :key="variant.id" @mouseover="updateImage(variant.image)">{{ variant.color }}</div>
 
-                    <!-- Task!: Tambahkan array sizes ke data object dengan menggunakan v-for
-                        untuk menampilkannya-->
-                        <ul>
-                            <li v-for="(size, index) in sizes" :key="index">{{ size }}</li>
-                        </ul>
-                    <!-- End Task -->
+                    <!-- Untuk membuat button berfungsi sebagai tambah untuk cart tambahkan aksi
+                    directive dengan menuliskan v-on:click="method" contoh penggunaannya dibawah ini. -->
+                    <!-- <button class="button" v-on:click="cart += 1">Add to cart</button> -->
+                    
+                    <!-- untuk penggunaan method yang lebih panjang, bisa dipanggil dengan nama method yang dibuat 
+                    lalu di js nya membuat sebuah method untuk melakukan method yang kita inginkan-->
+                    <!-- <button class="button" v-on:click="addToCart">Add to cart</button> -->
+                    
+                    <!-- gunakan shorthand @click  untuk menyatakan listener dari v-on -->
+                    <button class="button" @click="addToCart">Add to cart</button>
 
-                        <!-- v-for juga bisa mengambil dan menampilkan data object dalam array 
-                        dengan cara mendeklarasikan alias dengan ekspresi contoh varian.color -->
-                        <!-- atribut :key digunakan untuk membuat suatu ekspresi bersifat unik tidak boleh sama, 
-                        digunakan untuk mengubah data dengan identitas id dalam key -->
-                    <div v-for="variant in variants" :key="variant.id">{{ variant.color }}</div>
+                    <!-- Task!: buatlah button reduce the cart atau pengurangan(decrement) jumlah cart -->
+                    <button class="button" @click="reduceTheCart">Subtract from Cart</button>
                 </div>
             </div>
         </div>
