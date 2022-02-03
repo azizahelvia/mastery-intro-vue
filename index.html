@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>L7 - Class & Style Binding</title>
+    <title>L8 - Computed Properties</title>
     <!-- Import css styles -->
     <link rel="stylesheet" href="./assets/styles.css">
     <!-- Import vue.js -->
@@ -20,13 +20,18 @@
             <div class="product-container">
                 <div class="product-image">
                     <!-- Gambar ditampilkan disini -->
-                    <!-- Task!: buatlah class out-of-stock-img ke gambar pada saat inventory false atau 0 -->
-                    <img :class="{ 'out-of-stock-img' : inventory == 0 }" :src="image" alt="kaus-kaki-hijau">
-                    <!-- End Task -->
+                    <img :src="image" alt="kaus-kaki-hijau">
                 </div>
                 <div class="product-info">
-                    <h1>{{ product }}</h1>
-                    <!-- <p v-show="inStock">Stok Tersedia</p> -->
+                    <!-- title adalah mewakili method dari object computed
+                    yang bertujuan untuk menggabungkan brand dan product -->
+                    <h1>{{ title }}</h1>
+
+                    <!-- Task!: buatlah onSale = Dijual data boolean menggunakan 
+                    computed property untuk menampilkan "brand + product" dijual
+                    saat onSale bernilai true-->
+                    <p>{{ sale }}</p>
+                    <!-- End Task -->
 
                     <p v-if="inventory > 20">Stok Tersedia</p>
                     <p v-else-if="inventory <= 20 && inventory > 0">Hampir Habis!</p>
@@ -36,23 +41,16 @@
                         <li v-for="detail in details">{{ detail }}</li>
                     </ul>
 
-                    <!-- :style digunakan untuk memasukkan css didalam object javascript,
-                    dipanggil melalui object untuk penamaan attribut di js menggunakan camelCase
-                    jadi dalam kasus ini, nama warna akan digantikan oleh lingkaran berwarna yang
-                    merepresentasikan warna dari kaus kaki -->
+                    <!-- Tambahkan parameter index dan ubah dari updateImage ke updateVariant
+                    untuk mengambil data dari index yang akan dipilih berdasarkan warna -->
                     <div 
-                    v-for="variant in variants" 
+                    v-for="(variant, index) in variants" 
                     :key="variant.id" 
-                    @mouseover="updateImage(variant.image)"
+                    @mouseover="updateVariant(index)"
                     class="color-circle"
                     :style="{ backgroundColor: variant.color }">
                     </div>
 
-                    <!-- :disabled digunakan untuk mengaktifkan fitur disabled button agar 
-                    button tsb tidak bisa digunakan jika barangnya habis atau 0, untuk contoh
-                    penggunaannya lihat dibawah ini-->
-                    <!-- :class memanggil class yang ada di style jika kondisi barangnya habis atau 0
-                    maka style disable button akan diaktifkan dan fitur disable telah aktif -->
                     <button 
                     class="button"
                     :class="{ disableButton: inventory == 0 }"
