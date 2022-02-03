@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>L6 - Event Handling</title>
+    <title>L7 - Class & Style Binding</title>
     <!-- Import css styles -->
     <link rel="stylesheet" href="./assets/styles.css">
     <!-- Import vue.js -->
@@ -20,7 +20,9 @@
             <div class="product-container">
                 <div class="product-image">
                     <!-- Gambar ditampilkan disini -->
-                    <img :src="image" alt="kaus-kaki-hijau">
+                    <!-- Task!: buatlah class out-of-stock-img ke gambar pada saat inventory false atau 0 -->
+                    <img :class="{ 'out-of-stock-img' : inventory == 0 }" :src="image" alt="kaus-kaki-hijau">
+                    <!-- End Task -->
                 </div>
                 <div class="product-info">
                     <h1>{{ product }}</h1>
@@ -33,22 +35,31 @@
                     <ul>
                         <li v-for="detail in details">{{ detail }}</li>
                     </ul>
-                    <!-- tambahkan @mouseover ketika menghover mouse ke elemen yg dituju maka ada perubahan gambar-->
-                    <div v-for="variant in variants" :key="variant.id" @mouseover="updateImage(variant.image)">{{ variant.color }}</div>
 
-                    <!-- Untuk membuat button berfungsi sebagai tambah untuk cart tambahkan aksi
-                    directive dengan menuliskan v-on:click="method" contoh penggunaannya dibawah ini. -->
-                    <!-- <button class="button" v-on:click="cart += 1">Add to cart</button> -->
-                    
-                    <!-- untuk penggunaan method yang lebih panjang, bisa dipanggil dengan nama method yang dibuat 
-                    lalu di js nya membuat sebuah method untuk melakukan method yang kita inginkan-->
-                    <!-- <button class="button" v-on:click="addToCart">Add to cart</button> -->
-                    
-                    <!-- gunakan shorthand @click  untuk menyatakan listener dari v-on -->
-                    <button class="button" @click="addToCart">Add to cart</button>
+                    <!-- :style digunakan untuk memasukkan css didalam object javascript,
+                    dipanggil melalui object untuk penamaan attribut di js menggunakan camelCase
+                    jadi dalam kasus ini, nama warna akan digantikan oleh lingkaran berwarna yang
+                    merepresentasikan warna dari kaus kaki -->
+                    <div 
+                    v-for="variant in variants" 
+                    :key="variant.id" 
+                    @mouseover="updateImage(variant.image)"
+                    class="color-circle"
+                    :style="{ backgroundColor: variant.color }">
+                    </div>
 
-                    <!-- Task!: buatlah button reduce the cart atau pengurangan(decrement) jumlah cart -->
-                    <button class="button" @click="reduceTheCart">Subtract from Cart</button>
+                    <!-- :disabled digunakan untuk mengaktifkan fitur disabled button agar 
+                    button tsb tidak bisa digunakan jika barangnya habis atau 0, untuk contoh
+                    penggunaannya lihat dibawah ini-->
+                    <!-- :class memanggil class yang ada di style jika kondisi barangnya habis atau 0
+                    maka style disable button akan diaktifkan dan fitur disable telah aktif -->
+                    <button 
+                    class="button"
+                    :class="{ disableButton: inventory == 0 }"
+                    :disabled="inventory == 0"
+                    @click="addToCart">
+                    Add to cart
+                </button>
                 </div>
             </div>
         </div>

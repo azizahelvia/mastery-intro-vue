@@ -4,12 +4,12 @@ const app = Vue.createApp({
             cart: 0,
             product: 'Kaus Kaki',
             image: './assets/images/socks_green.jpg',
-            inventory: 10,
+            inventory: 0,
             details: ['50% katun', '30% wol', '20% poliester'],
             // dalam variants tambahkan url image
             variants: [
-                { id: 2110, color: 'hijau', image: './assets/images/socks_green.jpg'},
-                { id: 2111, color: 'biru', image: './assets/images/socks_blue.jpg'},
+                { id: 2110, color: 'green', image: './assets/images/socks_green.jpg'},
+                { id: 2111, color: 'blue', image: './assets/images/socks_blue.jpg'},
             ]
         }
     },
@@ -24,11 +24,5 @@ const app = Vue.createApp({
         updateImage(variantImage) {
             this.image = variantImage
         },
-        // Task!: buatlah method untung mengurangi jumlah dalam cart
-        reduceTheCart() {
-            if (this.cart >= 1) {
-                this.cart -= 1
-            }
-        }
     }
 })
